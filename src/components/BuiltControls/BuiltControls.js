@@ -18,10 +18,13 @@ const BuildControls = (props) => {
                     return <BuildControl label={i.label}
                         key={i.type}
                         addclick={() => props.adding(i.type)}
-                        remclick={() => props.removing(i.type)} />
+                        remclick={() => props.removing(i.type)}
+                        disability = {props.disabledinfo[[i.type]]} />
                 })
             }
-            <button className={classes.OrderButton}>Order now</button>
+            <button disabled ={!props.ispuchasable} 
+            onClick = {props.purchasing}
+            className={classes.OrderButton}>Order now</button>
         </div>
     )
 }
