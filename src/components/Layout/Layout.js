@@ -1,18 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Aux from '../../hoc/Aux'
 import BurgerBuilder from '../../containers/BurgerBuilder/burgerbuilder'
+import SideDrawer from '../Navigation/Sidedrawer/SideDrawer'
+import Toolbar from '../Navigation/Toolbar/Toolbar'
 
 
-const Layout = (props) => {
+class Layout extends Component {
+    state = {
+        showsidedrawer: false
+    }
 
-    return (
-        <Aux>
-            <div>toolbox sidemenu ddrop down</div>
-        
+    sidedrawerclosehandler = () => {
+        this.setState({ showsidedrawer: false })
+    }
 
-           <main>{props.children}</main>
-        </Aux>
-    )
-} 
+    togglesideedrawerhandler = () => {
+        this.setState((prevstate) => {
+            return { showsidedrawer: !prevstate.showsidedrawer }
+        })
+    }
+    render() {
+        return (
+            <Aux>
+                <Toolbar togglesidehandle={this.togglesideedrawerhandler} />
+                <SideDrawer show = {this.state.showsidedrawer} sidedrawerclosehandler={this.sidedrawerclosehandler} />
+                <main>{this.props.children}</main>
+            </Aux>
+        )
+    }
+
+}
 
 export default Layout
