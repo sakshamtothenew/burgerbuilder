@@ -13,9 +13,24 @@ class Burger extends Component {
         return <Burgeringredient key={igkey + i} type={igkey} />
       })
     });
-    console.log(ingarray);
+    let flag = true;
+    for(let i in ingarray)
+    {
+      console.log(ingarray[i].length)
+      if(ingarray[i].length!=0)
+      {
+        flag = false;
+         break;
+      }
+    }
+     if(flag)
+     {
+       ingarray = <p>please add ingredients</p>
+     }
     return (
       <div className={classes.burger}>
+
+    
         <Burgeringredient type="bread-top" />
 
         {ingarray}
