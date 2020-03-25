@@ -5,13 +5,14 @@ import  {Route , Switch } from 'react-router-dom'
 import './App.css';
 import BurgerBuilder from './containers/BurgerBuilder/burgerbuilder';
 import Checkout from './containers/Checkout/Checkout'
+import OrderPage from './containers/OrderPage/OrderPage'
 function App() {
   return (
     <Aux>
     <div>this is burger app</div>
    <Layout>
      <Switch>
-     
+       <Route path = '/Orderpage' component = {OrderPage} />
       <Route path = '/checkout' component = {Checkout} />
       <Route path = '/' exact component ={BurgerBuilder} />
      
