@@ -1,12 +1,44 @@
-import React from 'react'
-import classes from './Order.module.css'
+import React, { Component } from 'react';
 
-const order = (props) => (
-  <div className = {classes.Order}>
-      <h3>Ingredients</h3>
-      <p><strong>Total price</strong>: 7.34 Usd</p>
-  </div>
-)
+import Order from '../OrderPage';
+import axios from '../../../Axios-instance';
+import errorhandler from '../../../hoc/errorhandler/errorhandling';
 
+class Orders extends Component {
+    state = {
+        orders: [],
+        loading: true
+    }
 
-export default order 
+    componentDidMount() {
+        axios.get('/orders.json')
+            .then(res => {
+                const fetchedOrders = [];
+                for (let key in res.data) {
+                    fetchedOrders.push({
+                        ...res.data[key],
+                        id: key
+                    });
+                }
+                this.setState({loading: false, orders: fetchedOrders});
+            })
+            .catch(err => {
+                this.setState({loading: false});
+            });
+    }
+
+    render () {
+        return (
+            <div>
+                {this.state.orders.map(order => (
+                    <Order 
+                        key={order.id}
+                        ingredients={order.ingredients}
+                        price={order.price} />
+                ))}
+            </div>
+        );
+    }
+}
+
+export default errorhandler(Orders, axios);
