@@ -4,7 +4,8 @@ import reducer from './BurgerBuilder'
 const initialData = {
 
     orders : [] , 
-    loading : false 
+    loading : false ,
+    puchased : false 
 }
 
 
@@ -35,7 +36,22 @@ const reducers = (state = initialData , actions) => {
                   ...state , 
                   loading : true
               }
-
+         case (actionTypes.FETCH_ORDERS_START) : 
+           return {
+               ...state ,
+               loading : true 
+           }  
+         case (actionTypes.FETCH_ORDERS_SUCCESS) : 
+            return {
+                ...state , 
+                orders : actions.orders ,
+                loading : false
+            } 
+        case (actionTypes.FETCH_ORDERS_FAIL) :
+            return {
+                ...state , 
+                loading : false
+            }
             default :
              return state 
       }

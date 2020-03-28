@@ -4,5 +4,10 @@ export { addIngredient  ,
 } from './BurgerBuilder' 
 
 export {
-    purchaseBurger
+    purchaseBurger ,
+    fetchOrders
 } from './order.js'
+export {
+    auth 
+
+} from './Auth'

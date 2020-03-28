@@ -1,44 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import Order from '../OrderPage';
-import axios from '../../../Axios-instance';
-import errorhandler from '../../../hoc/errorhandler/errorhandling';
+import classes from './Order.module.css';
 
-class Orders extends Component {
-    state = {
-        orders: [],
-        loading: true
-    }
+const order = ( props ) => {
+    const ingredients = [];
 
-    componentDidMount() {
-        axios.get('/orders.json')
-            .then(res => {
-                const fetchedOrders = [];
-                for (let key in res.data) {
-                    fetchedOrders.push({
-                        ...res.data[key],
-                        id: key
-                    });
-                }
-                this.setState({loading: false, orders: fetchedOrders});
-            })
-            .catch(err => {
-                this.setState({loading: false});
-            });
-    }
-
-    render () {
-        return (
-            <div>
-                {this.state.orders.map(order => (
-                    <Order 
-                        key={order.id}
-                        ingredients={order.ingredients}
-                        price={order.price} />
-                ))}
-            </div>
+    for ( let ingredientName in props.ingredients ) {
+        ingredients.push(
+            {
+                name: ingredientName,
+                amount: props.ingredients[ingredientName]
+            }
         );
     }
-}
 
-export default errorhandler(Orders, axios);
+    const ingredientOutput = ingredients.map(ig => {
+        return <span 
+            style={{
+                textTransform: 'capitalize',
+                display: 'inline-block',
+                margin: '0 8px',
+                border: '1px solid #ccc',
+                padding: '5px'
+                }}
+            key={ig.name}>{ig.name} ({ig.amount})</span>;
+    });
+
+    return (
+        <div className={classes.Order}>
+            <p>Ingredients: {ingredientOutput}</p>
+            <p>Price: <strong>USD {Number.parseFloat( props.price ).toFixed( 2 )}</strong></p>
+        </div>
+    );
+};
+
+export default order;
