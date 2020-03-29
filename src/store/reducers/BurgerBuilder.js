@@ -3,7 +3,8 @@ import axios from '../../Axios-instance'
 const initialstate = {
     ingredients: null , 
     TotalPrice: 4, 
-    error : false 
+    error : false ,
+    building : false 
 }
 
 const INITIAL_PRICE = {
@@ -24,8 +25,8 @@ const reducer = (state = initialstate, action) => {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] + 1
                 },
-                TotalPrice: state.TotalPrice + INITIAL_PRICE[action.ingredientName]
-
+                TotalPrice: state.TotalPrice + INITIAL_PRICE[action.ingredientName] ,
+                building : true
 
             }
         case (actionType.REMOVE_INGREDIENTS):
@@ -34,7 +35,8 @@ const reducer = (state = initialstate, action) => {
                 ingredients: {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] - 1,
-        error: null
+        error: null , 
+        building : true
     },
                 TotalPrice: state.TotalPrice - INITIAL_PRICE[action.ingredientName]
 
@@ -46,7 +48,8 @@ const reducer = (state = initialstate, action) => {
               return {
                    ...state , 
                     ingredients : action.ingredients  , 
-                    error : false 
+                    error : false ,
+                    building : false
               }
 
               case (actionType.SET_ERROR) : 

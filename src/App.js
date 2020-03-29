@@ -1,33 +1,65 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Aux from './hoc/Aux'
 import Layout from './components/Layout/Layout'
-import  {Route , Switch } from 'react-router-dom'
+import  {Route , Switch , Redirect} from 'react-router-dom'
 import './App.css';
 import BurgerBuilder from './containers/BurgerBuilder/burgerbuilder';
 import Checkout from './containers/Checkout/Checkout'
 import OrderPage from './containers/OrderPage/OrderPage'
 import Auth from './containers/Auth/Auth'
-function App() {
-  return (
-    <Aux>
-    <div>this is burger app</div>
-   <Layout>
-     <Switch>
-      <Route path = '/Auth' component = {Auth} />
+import Logout from './containers/Auth/Logout/Logout';
+import {connect} from 'react-redux'
+import * as action  from './store/actions/index'
+class  App extends Component {
 
-       <Route path = '/Orderpage' component = {OrderPage} />
-      <Route path = '/checkout' component = {Checkout} />
-       <Route path = '/' exact component ={BurgerBuilder} />
-     
-     </Switch>
+ componentDidMount() {
+    this.props.checkauthstatus();
+ }
 
-     
-     
-   </Layout>
+  render() {
+    let routes = (
+      <Switch>
+        <Route path="/Auth" component={Auth} />
+        <Route path="/" exact component={BurgerBuilder} />
+        <Redirect to="/" />
+      </Switch>
+    );
 
-    </Aux>
-   
-  );
+    if ( this.props.isAuthenticated ) {
+      routes = (
+        <Switch>
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/orders" component={OrderPage} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/" exact component={BurgerBuilder} />
+          <Redirect to="/" />
+        </Switch>
+      );
+    }
+    return (
+      <Aux>
+      <div>this is burger app</div>
+     <Layout>
+     {routes}
+     </Layout>
+  
+      </Aux>
+     
+    );
+  }
+  
 }
 
-export default App;
+const mapStateToProps = state =>  {
+  return {
+    isAuthenticated :   state.auth.token !== null
+  }
+}
+ const mapDispatchToProps = dispatch => {
+
+  return {
+
+     checkauthstatus : () =>  dispatch(action.authCheckState())
+  }
+ }
+export default connect(mapStateToProps, mapDispatchToProps)(App);

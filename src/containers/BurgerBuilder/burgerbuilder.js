@@ -8,7 +8,7 @@ import axios from '../../Axios-instance'
 import Spinner from '../../components/Spinner/Spinner'
 import errorhandler from '../../hoc/errorhandler/errorhandling'
 import {connect}  from 'react-redux' 
-import * as actionType from '../../store/actions/BurgerBuilder'
+import * as actionType from '../../store/actions/index'
 class BurgerBuilder extends Component {
 
     state = {
@@ -27,37 +27,17 @@ class BurgerBuilder extends Component {
             }, 0);
         return sum > 0
     }
-    // addingredientshandler = (type) => {
-    //     let ingr = { ...this.state.ingredients };
-    //     let totalprice = this.state.totalPrice;
-    //     ingr[type] += 1;
-    //     totalprice += this.price[type];
-
-    //     this.setState({
-    //         ingredients: ingr,
-    //         totalPrice: totalprice
-    //     })
-    //     this.purchasehandler(ingr)
-    // }
-
-    // removeingredienthanndler = (type) => {
-
-    //     let ingr = { ...this.state.ingredients };
-    //     if(ingr[type]<=0)
-    //       return;
-    //     let totalprice = this.state.totalPrice;
-    //     ingr[type] -= 1;
-    //     totalprice -= this.price[type];
-
-    //     this.setState({
-    //         ingredients: ingr,
-    //         totalPrice: totalprice
-    //     })
-    //     this.purchasehandler(ingr)
-    // }
+   
 
     purchasinghandle = () => {
-        this.setState({ purchasing: true })
+        if(this.props.isAuthenticated)
+        {
+           this.setState({ purchasing: true });
+        }
+          else {
+            this.props.history.push('/Auth')
+            this.props.authredirectpath('/checkout')
+          }
     }
 
     purchasingcontinue = () => {
@@ -78,8 +58,9 @@ class BurgerBuilder extends Component {
     }
 
     purchasingcancel = () => {
-
+    
         this.setState({ purchasing: false });
+     
     }
 
     componentDidMount() {
@@ -99,6 +80,7 @@ class BurgerBuilder extends Component {
                     <Burger ingredients={this.props.ingredients} />
                     <BuildControls adding={this.props.addingredientshandler}
                         removing={this.props.removeingredienthandler}
+                        isAuth = {this.props.isAuthhenticated}
                         totalprice={this.props.totalPrice}
                         disabledinfo={disabledinfo}
                         ispuchasable={this.purchasehandler(this.props.ingredients)}
@@ -135,7 +117,8 @@ const mapStateToProps = state => {
 
         ingredients : state.burgerBuilder.ingredients,
         TotalPrice : state.burgerBuilder.TotalPrice,
-        error : state.error
+        error : state.error ,
+        isAuthhenticated : state.auth.token !== null 
     }
 
 }
@@ -144,7 +127,8 @@ const mapDispatchToProps = dispatch => {
     return {
         addingredientshandler: (ingname) => dispatch(actionType.addIngredient(ingname)),
         removeingredienthandler: (ingname) => dispatch(actionType.removeIngredient(ingname)),
-        initIngredienthandler : () => dispatch(actionType.initIngredients()) 
+        initIngredienthandler : () => dispatch(actionType.initIngredients()) ,
+     authredirectpath  : (redirectpath) => dispatch(actionType.authredirectpath(redirectpath))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(errorhandler(BurgerBuilder, axios))

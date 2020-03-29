@@ -11,7 +11,7 @@ const Toolbar = (props) => {
             <header className = {classes.Toolbar} >
                <Drawertoggle click = {props.togglesidehandle} />
             <Logo />
-         <NavigationItems />
+         <NavigationItems  isAuthenticated = {props.isAuth} />
             </header>
            
        </Aux>

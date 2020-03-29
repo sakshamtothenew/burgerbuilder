@@ -8,6 +8,9 @@ export {
     fetchOrders
 } from './order.js'
 export {
-    auth 
-
+    auth ,
+    authlogout,
+    authredirectpath , 
+    authCheckState
+ 
 } from './Auth'

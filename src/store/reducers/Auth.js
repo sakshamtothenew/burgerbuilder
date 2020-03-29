@@ -5,7 +5,8 @@ const initialstate = {
     token : null , 
     userid : null , 
     error   : null , 
-    loading :  false
+    loading :  false , 
+    authredirectpath : null 
 }
 
 
@@ -20,7 +21,9 @@ const reducer = (state  = initialstate , action) => {
               } 
             case (actionTypes.AUTH_LOGOUT) : 
               return {
-                  ...state
+                  ...state , 
+                  token : null ,
+                  userid : null 
               }
           case (actionTypes.AUTH_SUCCESS) : 
           return {
@@ -29,7 +32,11 @@ const reducer = (state  = initialstate , action) => {
                token : action.token ,
                userid : action.userid
           }  
-
+            case (actionTypes.AUTH_REDIRECT_PATH) :
+                return {
+                    ...state , 
+                    authredirectpath : action.redirectingpath
+                }
           case (actionTypes.AUTH_FAIL) : 
                 return {
                     ...state , 
