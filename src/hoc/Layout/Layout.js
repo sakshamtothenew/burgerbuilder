@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Aux from '../../hoc/Aux'
+import Aux from '../Aux'
 import BurgerBuilder from '../../containers/BurgerBuilder/burgerbuilder'
-import SideDrawer from '../Navigation/Sidedrawer/SideDrawer'
-import Toolbar from '../Navigation/Toolbar/Toolbar'
+import SideDrawer from '../../components/Navigation/Sidedrawer/SideDrawer'
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
 import * as actions from '../../store/actions/index'
 import {connect} from 'react-redux'
 

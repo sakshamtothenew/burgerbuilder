@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionsTypes'
-import reducer from './BurgerBuilder'
+import {updateObj} from '../../shared/Utility'
+
 
 const initialData = {
 
@@ -19,39 +20,39 @@ const reducers = (state = initialData , actions) => {
 
         
         case (actionTypes.PURCHASE_SUCCESS) : 
-         return  {
-             ...state , 
+         return  updateObj(
+             state , 
+             {
              loading : false ,
              orders : state.orders.concat(newOrder)
-         } 
+         } )
 
          case (actionTypes.PURCHASE_FAIL) :
-             return {
-                 ...state ,
-                 loading : false
-             }
+             return updateObj(
+                 state ,
+                 {loading : false})
             
           case (actionTypes.PURCHASE_START) :
-              return {
-                  ...state , 
-                  loading : true
-              }
+              return updateObj (
+                  state , 
+                  {loading : true
+              })
          case (actionTypes.FETCH_ORDERS_START) : 
-           return {
-               ...state ,
-               loading : true 
-           }  
+           return updateObj(
+               state ,
+               {loading : true 
+           }  )
          case (actionTypes.FETCH_ORDERS_SUCCESS) : 
-            return {
-                ...state , 
-                orders : actions.orders ,
+            return updateObj(
+                state , 
+                {orders : actions.orders ,
                 loading : false
-            } 
+            } )
         case (actionTypes.FETCH_ORDERS_FAIL) :
-            return {
-                ...state , 
-                loading : false
-            }
+            return updateObj(
+                state , 
+                {loading : false
+            })
             default :
              return state 
       }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Aux from './hoc/Aux'
-import Layout from './components/Layout/Layout'
+import Layout from './hoc/Layout/Layout'
 import  {Route , Switch , Redirect} from 'react-router-dom'
 import './App.css';
 import BurgerBuilder from './containers/BurgerBuilder/burgerbuilder';
@@ -31,6 +31,7 @@ class  App extends Component {
           <Route path="/checkout" component={Checkout} />
           <Route path="/orders" component={OrderPage} />
           <Route path="/logout" component={Logout} />
+          <Route path = "/Auth" component = {Auth} />
           <Route path="/" exact component={BurgerBuilder} />
           <Redirect to="/" />
         </Switch>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import classes from './Auth.module.css'
-import Input from '../../components/Input/Input'
-import Button from '../../components/Button/Button'
+import Input from '../../components/UI/Input/Input'
+import Button from '../../components/UI/Button/Button'
 import * as action from '../../store/actions/index'
-import Spinner from '../../components/Spinner/Spinner'
+import Spinner from '../../components/UI/Spinner/Spinner'
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import{ checkValidity }from'../../shared/Utility'
 
 class Auth extends Component {
 
@@ -47,36 +48,7 @@ class Auth extends Component {
      }
 
 
-     checkValidity(value, rules) {
-         let isValid = true;
-         if (!rules) {
-             return true;
-         }
-         
-         if (rules.required) {
-             isValid = value.trim() !== '' && isValid;
-         }
- 
-         if (rules.minLength) {
-             isValid = value.length >= rules.minLength && isValid
-         }
- 
-         if (rules.maxLength) {
-             isValid = value.length <= rules.maxLength && isValid
-         }
- 
-         if (rules.isEmail) {
-             const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-             isValid = pattern.test(value) && isValid
-         }
- 
-         if (rules.isNumeric) {
-             const pattern = /^\d+$/;
-             isValid = pattern.test(value) && isValid
-         }
- 
-         return isValid;
-     }
+    
 
      submithandler = (event) => {
          event.preventDefault();
@@ -102,7 +74,7 @@ class Auth extends Component {
             ...updatedOrderForm[inputIdentifier]
         };
         updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation);
         updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
             
@@ -111,9 +83,13 @@ class Auth extends Component {
      }
 
       componentDidMount()
-     {   
+     {     
+         console.log(this.props.redirectpath)
          if(!this.props.building&& this.props.redirectpath !== '/')
+         {
          this.props.authredirectpath('/')
+       
+         }
      }
 
     render() {
@@ -149,7 +125,7 @@ class Auth extends Component {
 
           let  isAuth = null
           if(this.props.isAuthenticated)
-          {
+          { 
               isAuth =  <Redirect to = {this.props.redirectpath} />
           }
         return (

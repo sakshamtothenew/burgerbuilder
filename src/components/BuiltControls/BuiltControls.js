@@ -9,7 +9,7 @@ const controls = [
 
 ]
 const BuildControls = (props) => {
-
+   console.log("[BuildControls ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: " , props.isAuth)
     return (
         <div className={classes.BuildControls}>
             <div className={classes.price}>Total Price : {props.totalprice}</div>

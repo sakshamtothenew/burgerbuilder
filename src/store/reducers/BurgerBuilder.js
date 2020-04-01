@@ -1,5 +1,6 @@
 import * as actionType from '../actions/actionsTypes'
 import axios from '../../Axios-instance'
+import {updateObj} from '../../shared/Utility'
 const initialstate = {
     ingredients: null , 
     TotalPrice: 4, 
@@ -15,24 +16,23 @@ const INITIAL_PRICE = {
     bacon: 2
 }
 const reducer = (state = initialstate, action) => {
-    console.log(action.ingredientName)
-    console.log(action.type);
+  
     switch (action.type) {
         case (actionType.ADD_INGREDIENTS):
-            return {
-                ...state,
-                ingredients: {
+            return updateObj(
+                state,
+                {ingredients: {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] + 1
                 },
                 TotalPrice: state.TotalPrice + INITIAL_PRICE[action.ingredientName] ,
                 building : true
 
-            }
+            })
         case (actionType.REMOVE_INGREDIENTS):
-            return {
-                ...state,
-                ingredients: {
+            return updateObj(
+                    state,
+               { ingredients: {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] - 1,
         error: null , 
@@ -42,21 +42,21 @@ const reducer = (state = initialstate, action) => {
 
 
 
-            }
+            })
 
             case (actionType.SET_INGREDIENTS) : 
-              return {
-                   ...state , 
-                    ingredients : action.ingredients  , 
+              return updateObj(
+                   state , 
+                   { ingredients : action.ingredients  , 
                     error : false ,
                     building : false
-              }
+              })
 
               case (actionType.SET_ERROR) : 
-              return {
-                   ...state ,
-                   error : true
-              }
+              return updateObj(
+                   state ,
+                   {error : true
+              })
 
         default:
             return state
