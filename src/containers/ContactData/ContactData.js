@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import Button from '../../components/UI/Button/Button'
 import classes from './Contact.module.css'
-import axios from '../../Axios-instance'
+// import axios from '../../Axios-instance'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import Input from '../../components/UI/Input/Input'
 import {connect} from 'react-redux'
 import * as actions from '../../store/actions/index'
+import {Redirect} from 'react-router-dom'
 import  {checkValidity} from '../../shared/Utility'
 class ContactData extends Component {
 
@@ -106,13 +107,15 @@ class ContactData extends Component {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
         console.log(formData)
+    
         const order = {
-            ingredients: this.props.ings,
+            ingredients: this.props.ingredients,
             price: this.props.price,
-            orderData: formData
+            orderData: formData , 
+            userId : this.props.userId
         }
         console.log(order);
-        this.props.onOrderBurger(order);
+        this.props.onOrderBurger(order , this.props.token);
     }
 
   
@@ -161,6 +164,9 @@ class ContactData extends Component {
         if ( this.props.loading ) {
             form = <Spinner />;
         }
+       if(this.props.purchased) {
+           form = <Redirect to = "/" />
+       }
         return (
             <div className={classes.ContactData}>
                 <h4>Enter your Contact Data</h4>
@@ -174,14 +180,17 @@ class ContactData extends Component {
 const mapStateToprops = state => {
     return {ingredients : state.burgerBuilder.ingredients ,
         price :  state.burgerBuilder.TotalPrice , 
-        loading : state.order.loading 
+        loading : state.order.loading ,
+        purchased : state.order.purchased , 
+        token :  state.auth.token ,
+        userId : state.auth.userid
     }  
 
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger : (orderData) => dispatch(actions.purchaseBurger(orderData))
+        onOrderBurger : (orderData , token) => dispatch(actions.purchaseBurger(orderData , token))
     }
 }
 export default connect(mapStateToprops , mapDispatchToProps)(ContactData)

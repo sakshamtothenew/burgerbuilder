@@ -73,7 +73,7 @@ class BurgerBuilder extends Component {
     render() {
         const disabledinfo = { ...this.props.ingredients }
         console.log("this is ingredientss", this.props.ingredient)
-        let burger = this.props.error ? <p>Something went wrong !!</p> : <Spinner />
+        let burger = this.props.error ? <p>Something went wrong !!</p> : <Spinner left = "50%" top = "100px"/>
         let ordersummary;
 
         if (this.props.ingredients) {
@@ -83,7 +83,7 @@ class BurgerBuilder extends Component {
                     <BuildControls adding={this.props.addingredientshandler}
                         removing={this.props.removeingredienthandler}
                         isAuth={this.props.isAuthenticated}
-                        totalprice={this.props.totalPrice}
+                        totalprice={this.props.TotalPrice}
                         disabledinfo={disabledinfo}
                         ispuchasable={this.purchasehandler(this.props.ingredients)}
                         purchasing={this.purchasinghandle} />

@@ -1,5 +1,5 @@
 import * as actionType from '../actions/actionsTypes'
-import axios from '../../Axios-instance'
+// import axios from '../../Axios-instance'
 import {updateObj} from '../../shared/Utility'
 const initialstate = {
     ingredients: null , 
@@ -49,7 +49,8 @@ const reducer = (state = initialstate, action) => {
                    state , 
                    { ingredients : action.ingredients  , 
                     error : false ,
-                    building : false
+                    building : false , 
+                    TotalPrice : 4.00
               })
 
               case (actionType.SET_ERROR) : 

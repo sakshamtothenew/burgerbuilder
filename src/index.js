@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from  'react-router-dom'
 import * as serviceWorker from './serviceWorker';
-import {connect , createStore , applyMiddleware ,  combineReducers , compose} from  'redux';
+import { createStore , applyMiddleware ,  combineReducers , compose} from  'redux';
 import burgerReducer  from './store/reducers/BurgerBuilder'
 import orderReducer from './store/reducers/order' 
 import authreducer from './store/reducers/Auth'

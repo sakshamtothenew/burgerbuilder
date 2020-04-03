@@ -5,7 +5,8 @@ export { addIngredient  ,
 
 export {
     purchaseBurger ,
-    fetchOrders
+    fetchOrders,
+    purchaseInitHandler
 } from './order.js'
 export {
     auth ,

@@ -1,13 +1,16 @@
 import React , {Component} from 'react'
 import Checkoutsummary from '../../components/CheckoutSummary/CheckoutSummary'
 import ContactData from '../ContactData/ContactData'
-import {Route , Redirect} from 'react-router-dom'
+import {Route , Redirect} from 'react-router-dom' 
+import * as action from '../../store/actions/index'
 import {connect} from 'react-redux'
 class  Checkout extends Component {
 
 
     checkoutcontinuehandle = () => {
+        this.props.setPurchase()
         this.props.history.replace('/checkout/contact-info')
+
     }
 
     checkoutcancelhandle = () => {
@@ -47,4 +50,10 @@ const mapStateToProps = state => {
         price : state.burgerBuilder.TotalPrice
     }
 };
-export default connect(mapStateToProps)(Checkout)
+
+const mapDispatchToprops = dispatch => {
+    return {
+        setPurchase  : () =>  dispatch(action.purchaseInitHandler())
+    }
+}
+export default connect(mapStateToProps , mapDispatchToprops)(Checkout)

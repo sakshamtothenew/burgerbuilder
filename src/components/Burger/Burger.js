@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Burgeringredient from './BurgerIngredients/burgeringredients'
-import Aux from '../../hoc/Aux'
+// import Aux from '../../hoc/Aux'
 import classes from './burger.module.css'
 
 class Burger extends Component {
@@ -19,7 +19,7 @@ class Burger extends Component {
     for(let i in ingarray)
     {
       console.log("this is ingarray length " , ingarray[i].length)
-      if(ingarray[i].length!=0)
+      if(ingarray[i].length!==0)
       {
         flag = false;
          break;

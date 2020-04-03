@@ -113,7 +113,7 @@ class Auth extends Component {
                 ))
                 
         if(this.props.loading) {
-            form =  <Spinner />
+            form =  <Spinner left = "0%" />
         }
       
         let error = null;

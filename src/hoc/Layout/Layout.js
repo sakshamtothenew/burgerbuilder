@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Aux from '../Aux'
-import BurgerBuilder from '../../containers/BurgerBuilder/burgerbuilder'
+// import BurgerBuilder from '../../containers/BurgerBuilder/burgerbuilder'
 import SideDrawer from '../../components/Navigation/Sidedrawer/SideDrawer'
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
-import * as actions from '../../store/actions/index'
+// import * as actions from '../../store/actions/index'
 import {connect} from 'react-redux'
 
 class Layout extends Component {

@@ -6,7 +6,8 @@ const ordersummary = (props) => {
     const ingr = props.ingredients;
 
     let ingrarray = Object.keys(ingr).map((igkey) => {
-        return <li>{igkey} : {props.ingredients[igkey]}</li>
+        return <li key = {igkey}>
+            {igkey} : {props.ingredients[igkey]}</li>
     })
     return (
         <Aux>

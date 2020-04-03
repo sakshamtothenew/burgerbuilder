@@ -18,13 +18,15 @@ const reducers = (state = initialData , actions) => {
     }
       switch(actions.type) {
 
-        
+        case (actionTypes.PURCHASE_INIT) : 
+          return  updateObj(state , {purchased : false })
         case (actionTypes.PURCHASE_SUCCESS) : 
          return  updateObj(
              state , 
              {
              loading : false ,
-             orders : state.orders.concat(newOrder)
+             orders : state.orders.concat(newOrder) , 
+             purchased : true 
          } )
 
          case (actionTypes.PURCHASE_FAIL) :
@@ -35,12 +37,14 @@ const reducers = (state = initialData , actions) => {
           case (actionTypes.PURCHASE_START) :
               return updateObj (
                   state , 
-                  {loading : true
+                  {loading : true , 
+            
               })
          case (actionTypes.FETCH_ORDERS_START) : 
            return updateObj(
                state ,
-               {loading : true 
+               {loading : true  , 
+                
            }  )
          case (actionTypes.FETCH_ORDERS_SUCCESS) : 
             return updateObj(

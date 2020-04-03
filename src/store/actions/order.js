@@ -5,7 +5,8 @@ const purchaseSuccessHandler = (id , orderData) => {
    return {
        type : actionType.PURCHASE_SUCCESS ,
        orderid : id , 
-       orderData : orderData
+       orderData : orderData ,
+    
    }
 }
 
@@ -23,6 +24,11 @@ export const purchaseStartHandler = () => {
     }
 }
 
+export const purchaseInitHandler = () => {
+    return {
+        type : actionType.PURCHASE_INIT
+    }
+}
 
 export const fetchOrdersSuccess = ( orders ) => {
     return {
@@ -44,10 +50,12 @@ export const fetchOrdersStart = () => {
     };
 };
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token , userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
-        axios.get( '/orders.json?auth=' + token )
+        console.log("this is fetch order action {}{{{{{{{{{{{{{}}}}}}}}}}}}}}{{{{{}}" , userId)
+        const queryParams = '?auth=' + token +'&orderBy="userId"&equalTo="' + userId + '"';
+        axios.get( '/orders.json' + queryParams )
             .then( res => {
                 const fetchedOrders = [];
                 for ( let key in res.data ) {
@@ -66,12 +74,12 @@ export const fetchOrders = (token) => {
 
 
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData , token) => {
       
     return dispatch => {
          dispatch(purchaseStartHandler())
-         console.log("this is motherfucking orderdata" , orderData)
-        axios.post('/orders.json' , orderData)
+         console.log("this is motherfucking orderdata" , orderData , token)
+        axios.post('/orders.json?auth=' + token , orderData)
         .then(Response => {console.log(Response)
          dispatch(purchaseSuccessHandler(Response.data.id , Response.data))
         }) 
