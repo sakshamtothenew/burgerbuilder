@@ -1,17 +1,18 @@
-export { addIngredient  ,
-    removeIngredient , 
-    initIngredients  
-} from './BurgerBuilder' 
+export {
+    addIngredient,
+    removeIngredient,
+    initIngredients
+} from './BurgerBuilder'
 
 export {
-    purchaseBurger ,
+    purchaseBurger,
     fetchOrders,
     purchaseInitHandler
 } from './order.js'
 export {
-    auth ,
+    auth,
     authlogout,
-    authredirectpath , 
+    authredirectpath,
     authCheckState
- 
+
 } from './Auth'

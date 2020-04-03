@@ -4,10 +4,10 @@ import classes from './Contact.module.css'
 // import axios from '../../Axios-instance'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import Input from '../../components/UI/Input/Input'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as actions from '../../store/actions/index'
-import {Redirect} from 'react-router-dom'
-import  {checkValidity} from '../../shared/Utility'
+import { Redirect } from 'react-router-dom'
+import { checkValidity } from '../../shared/Utility'
 class ContactData extends Component {
 
     state = {
@@ -85,8 +85,8 @@ class ContactData extends Component {
                 elementType: 'select',
                 elementConfig: {
                     options: [
-                        {value: 'fastest', displayValue: 'Fastest'},
-                        {value: 'cheapest', displayValue: 'Cheapest'}
+                        { value: 'fastest', displayValue: 'Fastest' },
+                        { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
                 value: '',
@@ -95,47 +95,47 @@ class ContactData extends Component {
             }
         },
         formIsValid: false,
-    
+
     }
 
     orderhandler = (event) => {
 
-         event.preventDefault();
-    //    alert('thiis is order hander')
+        event.preventDefault();
+        //    alert('thiis is order hander')
         const formData = {};
         for (let formElementIdentifier in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
         console.log(formData)
-    
+
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
-            orderData: formData , 
-            userId : this.props.userId
+            orderData: formData,
+            userId: this.props.userId
         }
         console.log(order);
-        this.props.onOrderBurger(order , this.props.token);
+        this.props.onOrderBurger(order, this.props.token);
     }
 
-  
+
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedOrderForm = {
             ...this.state.orderForm
         };
-        const updatedFormElement = { 
+        const updatedFormElement = {
             ...updatedOrderForm[inputIdentifier]
         };
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation);
         updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        
+
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
         }
-        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
+        this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
     }
     render() {
         const formElementsArray = [];
@@ -148,7 +148,7 @@ class ContactData extends Component {
         let form = (
             <form onSubmit={this.orderhandler}>
                 {formElementsArray.map(formElement => (
-                    <Input 
+                    <Input
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
@@ -161,12 +161,12 @@ class ContactData extends Component {
                 <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
             </form>
         );
-        if ( this.props.loading ) {
+        if (this.props.loading) {
             form = <Spinner />;
         }
-       if(this.props.purchased) {
-           form = <Redirect to = "/" />
-       }
+        if (this.props.purchased) {
+            form = <Redirect to="/" />
+        }
         return (
             <div className={classes.ContactData}>
                 <h4>Enter your Contact Data</h4>
@@ -178,19 +178,20 @@ class ContactData extends Component {
 }
 
 const mapStateToprops = state => {
-    return {ingredients : state.burgerBuilder.ingredients ,
-        price :  state.burgerBuilder.TotalPrice , 
-        loading : state.order.loading ,
-        purchased : state.order.purchased , 
-        token :  state.auth.token ,
-        userId : state.auth.userid
-    }  
+    return {
+        ingredients: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.TotalPrice,
+        loading: state.order.loading,
+        purchased: state.order.purchased,
+        token: state.auth.token,
+        userId: state.auth.userid
+    }
 
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger : (orderData , token) => dispatch(actions.purchaseBurger(orderData , token))
+        onOrderBurger: (orderData, token) => dispatch(actions.purchaseBurger(orderData, token))
     }
 }
-export default connect(mapStateToprops , mapDispatchToProps)(ContactData)
+export default connect(mapStateToprops, mapDispatchToProps)(ContactData)

@@ -8,7 +8,7 @@ class Burger extends Component {
   render() {
     console.log(this.props)
     const ingredients = this.props.ingredients;
-      console.log(this.props.ingredients)
+    console.log(this.props.ingredients)
     let ingarray = Object.keys(ingredients).map((igkey) => {
       return [...Array(this.props.ingredients[igkey])].map((_, i) => {
         console.log(igkey);
@@ -16,23 +16,20 @@ class Burger extends Component {
       })
     });
     let flag = true;
-    for(let i in ingarray)
-    {
-      console.log("this is ingarray length " , ingarray[i].length)
-      if(ingarray[i].length!==0)
-      {
+    for (let i in ingarray) {
+      console.log("this is ingarray length ", ingarray[i].length)
+      if (ingarray[i].length !== 0) {
         flag = false;
-         break;
+        break;
       }
     }
-     if(flag)
-     {
-       ingarray = <p>please add ingredients</p>
-     }
+    if (flag) {
+      ingarray = <p>please add ingredients</p>
+    }
     return (
       <div className={classes.burger}>
 
-    
+
         <Burgeringredient type="bread-top" />
 
         {ingarray}
