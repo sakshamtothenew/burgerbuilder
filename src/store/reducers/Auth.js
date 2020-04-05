@@ -15,7 +15,7 @@ const reducer = (state = initialstate, action) => {
     switch (action.type) {
         case (actionTypes.AUTH_START): return updateObj(state, { loading: true, error: null })
         case (actionTypes.AUTH_LOGOUT): return updateObj(state, { token: null, userid: null })
-        case (actionTypes.AUTH_SUCCESS): return updateObj(state, { loading: false, token: action.token, userid: action.userid })
+        case (actionTypes.AUTH_SUCCESS): return updateObj(state, {  token: action.token, userid: action.userid , loading : false , error : null})
         case (actionTypes.AUTH_REDIRECT_PATH):console.log("this occurs")
          return updateObj(state, { authredirectpath: action.redirectingpath })
         case (actionTypes.AUTH_FAIL): return updateObj(state, { loading: false, error: action.error })
