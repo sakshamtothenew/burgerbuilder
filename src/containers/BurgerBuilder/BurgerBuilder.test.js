@@ -3,7 +3,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { BurgerBuilder } from './BurgerBuilder';
+import { BurgerBuilder } from './burgerbuilder';
 import BuildControls from '../../components/BuiltControls/BuiltControls';
 
 configure({adapter: new Adapter()});
