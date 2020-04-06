@@ -78,7 +78,6 @@ export const purchaseBurger = (orderData, token) => {
 
     return dispatch => {
         dispatch(purchaseStartHandler())
-        console.log("this is motherfucking orderdata", orderData, token)
         axios.post('/orders.json?auth=' + token, orderData)
             .then(Response => {
                 console.log(Response)

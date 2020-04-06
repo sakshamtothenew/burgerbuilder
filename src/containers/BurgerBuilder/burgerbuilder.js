@@ -73,7 +73,7 @@ export class BurgerBuilder extends Component {
     render() {
         const disabledinfo = { ...this.props.ingredients }
         console.log("this is ingredientss", this.props.ingredient)
-        let burger = this.props.error ? <p>Something went wrong !!</p> : <Spinner left = "50%" top = "100px"/>
+        let burger = this.props.error ? <p>Something went wrong !!</p> : <Spinner left="50%" top="100px" />
         let ordersummary;
 
         if (this.props.ingredients) {
@@ -120,7 +120,7 @@ const mapStateToProps = state => {
         ingredients: state.burgerBuilder.ingredients,
         TotalPrice: state.burgerBuilder.TotalPrice,
         error: state.error,
-        redirectedpath : state.auth.authredirectpath,
+        redirectedpath: state.auth.authredirectpath,
         isAuthenticated: state.auth.token !== null
     }
 
