@@ -9,7 +9,7 @@ describe('auth reducer', () => {
             error: null,
             loading: false,
             authredirectpath: '/'
-        });
+        }); 
     });
 
     it('should store the token upon login', () => {
